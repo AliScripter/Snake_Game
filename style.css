@@ -30,13 +30,13 @@
 }
 
 .head {
-  background: red;
+  background: royalblue;
 }
 
 .snake {
-  background: blue;
+  background: slateblue;
 }
 
 .food {
-  background: darkorange;
+  background: red;
 }
