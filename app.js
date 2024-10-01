@@ -32,10 +32,12 @@ function isCollide(snake) {
     }
 
     // If you bump into the wall
+    // number 18 is in css grid game board
     if (
       snake[0].x >= 18 ||
-      (snake[0].x <= 0 && snake[0].y >= 18) ||
-      snake[0].y <= 0 
+      snake[0].x <= 0 ||
+      snake[0].y >= 18 ||
+      snake[0].y <= 0
     ) {
       return true;
     }
@@ -58,6 +60,13 @@ function gameEngine() {
 
   if (sankeArr[0].y === food.y && sankeArr[0].x === food.x) {
     foodSound.play();
+    score += 1;
+    if (score > high_score_vall) {
+      high_score_vall = score;
+      localStorage.setItem(`hiscore`, JSON.stringify(high_score_vall));
+      higheScoreBox.innerHTML = `High Score : ${higher_score_vall}`;
+    }
+    scoreBox.innerHTML = `Score : ${score}`;
     sankeArr.unshift({
       x: sankeArr[0].x + inputDir.x,
       y: sankeArr[0].y + inputDir.y,
@@ -104,6 +113,16 @@ function gameEngine() {
 }
 
 // Main logic starts here
+musicSound.play();
+let higher_score = localStorage.getItem(`hiscore`);
+if (higher_score === null) {
+  let high_score_vall = 0;
+  localStorage.setItem(`hiscore`, JSON.stringify(high_score_vall));
+} else {
+  high_score_vall = JSON.parse(localStorage.getItem(`hiscore`));
+  higheScoreBox.innerHTML = `High Score : ${higher_score}`;
+}
+
 window.requestAnimationFrame(main);
 window.addEventListener(`keydown`, e => {
   inputDir = { x: 0, y: 1 }; // start the game
